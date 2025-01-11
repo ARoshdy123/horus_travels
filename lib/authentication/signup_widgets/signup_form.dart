@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../login_widgets/custom_text_form_field.dart';
 
@@ -20,21 +20,23 @@ class _SignUpFormState extends State<SignUpForm> {
   final TextEditingController passwordController = TextEditingController();
   final TextEditingController phoneController = TextEditingController();
 
-  final Box userBox = Hive.box('userBox');
   bool _obscureText = true;
 
+  // Toggle password visibility
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
   }
 
-  void saveUserDetails() {
-    userBox.put('firstName', firstNameController.text);
-    userBox.put('lastName', lastNameController.text);
-    userBox.put('email', emailController.text);
-    userBox.put('password', passwordController.text);
-    userBox.put('phone', phoneController.text);
+  // Save user details to SharedPreferences
+  Future<void> saveUserDetails() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    await prefs.setString('firstName', firstNameController.text);
+    await prefs.setString('lastName', lastNameController.text);
+    await prefs.setString('email', emailController.text);
+    await prefs.setString('password', passwordController.text);
+    await prefs.setString('phone', phoneController.text);
   }
 
   @override
@@ -67,7 +69,7 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 16,
           ),
 
-          /// E-mail
+          /// Email
           CTextFormField(
             prefixIcon: const Icon(Iconsax.direct),
             labelText: 'Email',
@@ -77,7 +79,7 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 16,
           ),
 
-          /// PhoneNumber
+          /// Phone Number
           CTextFormField(
             prefixIcon: const Icon(Iconsax.call),
             labelText: 'Phone Number',
@@ -105,26 +107,27 @@ class _SignUpFormState extends State<SignUpForm> {
             height: 16,
           ),
 
-          /// signup Button
+          /// Signup Button
           SizedBox(
             width: MediaQuery.of(context).size.width / 1.5,
-            child: ElevatedButton(style: ElevatedButton.styleFrom(
-              elevation: 0,
-              foregroundColor: const Color(0xFFF6F6F6),
-              backgroundColor: const Color(0xFF4b68ff),
-              disabledForegroundColor: const Color(0xFF939393),
-              disabledBackgroundColor: const Color(0xFFC4C4C4),
-              side: const BorderSide(color: Color(0xFF4b68ff)),
-              padding: const EdgeInsets.symmetric(vertical: 18),
-              textStyle: const TextStyle(
-                  fontSize: 16,
-                  color: Colors.white,
-                  fontWeight: FontWeight.w600),
-              shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12)),
-            ),
-              onPressed: () {
-                saveUserDetails();
+            child: ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                elevation: 0,
+                foregroundColor: const Color(0xFFF6F6F6),
+                backgroundColor: const Color(0xFF4b68ff),
+                disabledForegroundColor: const Color(0xFF939393),
+                disabledBackgroundColor: const Color(0xFFC4C4C4),
+                side: const BorderSide(color: Color(0xFF4b68ff)),
+                padding: const EdgeInsets.symmetric(vertical: 18),
+                textStyle: const TextStyle(
+                    fontSize: 16,
+                    color: Colors.white,
+                    fontWeight: FontWeight.w600),
+                shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12)),
+              ),
+              onPressed: () async {
+                await saveUserDetails(); // Save details to SharedPreferences
                 Navigator.pushReplacementNamed(context, '/login');
               },
               child: const Text('Create Account'),

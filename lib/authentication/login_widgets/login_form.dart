@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:iconsax/iconsax.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import 'custom_text_form_field.dart';
 
@@ -14,18 +14,21 @@ class LoginForm extends StatefulWidget {
 class LoginFormState extends State<LoginForm> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final Box userBox = Hive.box('userBox');
   bool _obscureText = true;
 
+  // Toggles password visibility
   void _togglePasswordVisibility() {
     setState(() {
       _obscureText = !_obscureText;
     });
   }
 
-  bool validateUser(String email, String password) {
-    final storedEmail = userBox.get('email');
-    final storedPassword = userBox.get('password');
+  // Validates user credentials
+  Future<bool> validateUser(String email, String password) async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final storedEmail = prefs.getString('email');
+    final storedPassword = prefs.getString('password');
+
     return email == storedEmail && password == storedPassword;
   }
 
@@ -36,17 +39,15 @@ class LoginFormState extends State<LoginForm> {
         padding: const EdgeInsets.symmetric(vertical: 32),
         child: Column(
           children: [
-            //Email
+            // Email Input Field
             CTextFormField(
               controller: emailController,
               labelText: 'Email',
-              prefixIcon: const Icon(
-                Iconsax.direct_right,
-              ),
+              prefixIcon: const Icon(Iconsax.direct_right),
             ),
             const SizedBox(height: 16),
 
-            //Password
+            // Password Input Field
             CTextFormField(
               obscureText: _obscureText,
               controller: passwordController,
@@ -61,7 +62,7 @@ class LoginFormState extends State<LoginForm> {
             ),
             const SizedBox(height: 32),
 
-            ///Sign in button
+            // Sign-In Button
             SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               child: ElevatedButton(
@@ -80,22 +81,23 @@ class LoginFormState extends State<LoginForm> {
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                 ),
-                onPressed: () {
-                  if (validateUser(
-                      emailController.text, passwordController.text)) {
+                onPressed: () async {
+                  final isValid = await validateUser(
+                      emailController.text, passwordController.text);
+                  if (isValid) {
                     Navigator.pushReplacementNamed(context, '/main');
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(content: Text('Invalid credentials!')),
                     );
                   }
-                }, //Login route
+                },
                 child: const Text("Sign in"),
               ),
             ),
             const SizedBox(height: 16),
 
-            ///Create account button
+            // Create Account Button
             SizedBox(
               width: MediaQuery.of(context).size.width / 1.5,
               child: OutlinedButton(
@@ -108,7 +110,7 @@ class LoginFormState extends State<LoginForm> {
                       color: Color(0xFF232323),
                       fontWeight: FontWeight.w600),
                   padding:
-                      const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
+                  const EdgeInsets.symmetric(vertical: 18, horizontal: 20),
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12)),
                 ),

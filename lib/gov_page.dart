@@ -1,5 +1,7 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class GovernmentsPage extends StatelessWidget {
   final List<String> governorates = ["Cairo", "Alexandria", "Luxor"];
@@ -9,7 +11,7 @@ class GovernmentsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Governorates')),
+      appBar: AppBar(title: const Text('Governorates')),
       body: ListView.builder(
         itemCount: governorates.length,
         itemBuilder: (context, index) {
@@ -19,8 +21,9 @@ class GovernmentsPage extends StatelessWidget {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) =>
-                      PlacesByGovernorate(governorate: governorates[index]),
+                  builder: (context) => PlacesByGovernorate(
+                    governorate: governorates[index],
+                  ),
                 ),
               );
             },
@@ -31,21 +34,47 @@ class GovernmentsPage extends StatelessWidget {
   }
 }
 
-class PlacesByGovernorate extends StatelessWidget {
+class PlacesByGovernorate extends StatefulWidget {
   final String governorate;
 
   const PlacesByGovernorate({super.key, required this.governorate});
 
   @override
-  Widget build(BuildContext context) {
-    final Box placesBox = Hive.box('placesBox');
-    var places = placesBox.values
-        .where((place) => place['governorate'] == governorate)
-        .toList();
+  _PlacesByGovernorateState createState() => _PlacesByGovernorateState();
+}
 
+class _PlacesByGovernorateState extends State<PlacesByGovernorate> {
+  List<Map<String, dynamic>> places = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _loadPlaces();
+  }
+
+  Future<void> _loadPlaces() async {
+    final SharedPreferences prefs = await SharedPreferences.getInstance();
+    final String? placesData = prefs.getString('places');
+
+    if (placesData != null) {
+      final List<Map<String, dynamic>> allPlaces =
+      List<Map<String, dynamic>>.from(json.decode(placesData));
+
+      setState(() {
+        places = allPlaces
+            .where((place) => place['governorate'] == widget.governorate)
+            .toList();
+      });
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: Text('Places in $governorate')),
-      body: ListView.builder(
+      appBar: AppBar(title: Text('Places in ${widget.governorate}')),
+      body: places.isEmpty
+          ? const Center(child: Text('No places found!'))
+          : ListView.builder(
         itemCount: places.length,
         itemBuilder: (context, index) {
           var place = places[index];
