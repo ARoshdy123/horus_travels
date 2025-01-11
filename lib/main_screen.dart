@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:tesstt/fav_page.dart';
-import 'package:tesstt/gov_page.dart';
+import 'package:tesstt/authentication/screens/gov_screen.dart';
 import 'package:tesstt/home_page.dart';
 import 'package:tesstt/profile_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';

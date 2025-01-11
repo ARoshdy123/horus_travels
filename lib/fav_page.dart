@@ -1,6 +1,7 @@
+import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'dart:convert'; // For JSON encoding and decoding
+import 'base_card.dart';
 
 class FavoritesPage extends StatefulWidget {
   const FavoritesPage({super.key});
@@ -15,35 +16,21 @@ class _FavoritesPageState extends State<FavoritesPage> {
   @override
   void initState() {
     super.initState();
-    _loadFavorites(); // Load favorites from SharedPreferences
+    _loadFavorites();
   }
 
   Future<void> _loadFavorites() async {
     final SharedPreferences prefs = await SharedPreferences.getInstance();
-    final String? favoritesData = prefs.getString('favoritePlaces');
-
-    if (favoritesData != null) {
+    final String? placesData = prefs.getString('places');
+    if (placesData != null) {
+      final List<Map<String, dynamic>> allPlaces =
+          List<Map<String, dynamic>>.from(json.decode(placesData));
 
       setState(() {
-        favoritePlaces = List<Map<String, dynamic>>.from(
-          json.decode(favoritesData),
-        );
+        favoritePlaces =
+            allPlaces.where((place) => place['isFavorite'] == true).toList();
       });
     }
-  }
-
-  Future<void> _updateFavorites() async {
-    final SharedPreferences prefs = await SharedPreferences.getInstance();
-
-    // Encode the updated list of favorite places into a JSON string
-    await prefs.setString('favoritePlaces', json.encode(favoritePlaces));
-  }
-
-  void _removeFromFavorites(int index) {
-    setState(() {
-      favoritePlaces.removeAt(index);
-    });
-    _updateFavorites(); // Save the updated favorites list
   }
 
   @override
@@ -51,23 +38,22 @@ class _FavoritesPageState extends State<FavoritesPage> {
     return Scaffold(
       appBar: AppBar(title: const Text('Favorites')),
       body: favoritePlaces.isEmpty
-          ? const Center(child: Text('No favorites added yet!'))
+          ? const Center(child: Text('No favorites yet!'))
           : ListView.builder(
-        itemCount: favoritePlaces.length,
-        itemBuilder: (context, index) {
-          var place = favoritePlaces[index];
-          return Card(
-            child: ListTile(
-              title: Text(place['name']),
-              subtitle: Text(place['description']),
-              trailing: IconButton(
-                icon: const Icon(Icons.favorite),
-                onPressed: () => _removeFromFavorites(index),
-              ),
+              itemCount: favoritePlaces.length,
+              itemBuilder: (context, index) {
+                final place = favoritePlaces[index];
+                return Padding(
+                  padding: const EdgeInsets.all(15.0),
+                  child: AspectRatio(
+                    aspectRatio: 16 / 9,
+                    child: BaseCard(
+                      place: place,
+                    ),
+                  ),
+                );
+              },
             ),
-          );
-        },
-      ),
     );
   }
 }

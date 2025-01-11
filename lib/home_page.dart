@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:local_hero_transform/local_hero_transform.dart';
-/// todo (Refactor) ... used package local_hero still texting for this project https://pub.dev/packages/local_hero_transform
+/// todo (Refactor) ... used package local_hero still editing for this project https://pub.dev/packages/local_hero_transform
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
