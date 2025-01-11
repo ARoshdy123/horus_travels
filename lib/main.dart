@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'authentication/screens/login_screen.dart';
 import 'authentication/screens/signup_screen.dart';
-import 'main_screen.dart';
+import 'authentication/screens/main_screen.dart';
 
 void main() async {
 

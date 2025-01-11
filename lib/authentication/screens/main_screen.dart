@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:tesstt/fav_page.dart';
+import 'package:tesstt/authentication/screens/fav_page.dart';
 import 'package:tesstt/authentication/screens/gov_screen.dart';
-import 'package:tesstt/home_page.dart';
-import 'package:tesstt/profile_page.dart';
+import 'package:tesstt/authentication/screens/home_page.dart';
+import 'package:tesstt/authentication/screens/widgets/main_widgets/profile_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});
 
   @override
-  _MainScreenState createState() => _MainScreenState();
+  State<MainScreen> createState() => _MainScreenState();
 }
 
 class _MainScreenState extends State<MainScreen> {

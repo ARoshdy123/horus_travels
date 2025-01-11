@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:tesstt/gov_places.dart';
+import 'package:tesstt/authentication/screens/widgets/main_widgets/gov_places.dart';
 
 class GovernmentsPage extends StatelessWidget {
   final List<String> governorates = ["Cairo", "Alexandria", "Luxor"];

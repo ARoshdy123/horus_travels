@@ -78,7 +78,6 @@ class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     if (isLoading) {
-      // Show loading indicator until data is loaded
       return const Scaffold(
         body: Center(child: CircularProgressIndicator()),
       );

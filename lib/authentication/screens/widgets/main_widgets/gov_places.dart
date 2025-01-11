@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tesstt/base_card.dart';
+import 'package:tesstt/authentication/screens/widgets/main_widgets/base_card.dart';
 
 class PlacesByGovernorate extends StatefulWidget {
   final String governorate;
@@ -9,7 +9,7 @@ class PlacesByGovernorate extends StatefulWidget {
   const PlacesByGovernorate({super.key, required this.governorate});
 
   @override
-  _PlacesByGovernorateState createState() => _PlacesByGovernorateState();
+  State<PlacesByGovernorate> createState() => _PlacesByGovernorateState();
 }
 
 class _PlacesByGovernorateState extends State<PlacesByGovernorate> {

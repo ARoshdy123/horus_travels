@@ -33,4 +33,4 @@ The Tourism App is a Flutter-based application designed to showcase popular plac
 ## **Contributors**
 - [AhmedRoshdy](https://github.com/ARoshdy123)
 - [AhmedKashwaa](https://github.com/ahmedkashwaa)
-- [AhmedKashwaa](https://github.com/ahmedkashwaa)
+- [Marina Magdy](marina.magdy.ibrahim97@gmail.com)
