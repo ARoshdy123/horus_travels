@@ -31,6 +31,7 @@ class _FavoritesPageState extends State<FavoritesPage> {
             allPlaces.where((place) => place['isFavorite'] == true).toList();
       });
     }
+
   }
 
   @override

@@ -68,11 +68,11 @@ class LoginFormState extends State<LoginForm> {
               child: ElevatedButton(
                 style: ElevatedButton.styleFrom(
                   elevation: 0,
-                  foregroundColor: const Color(0xFFF6F6F6),
-                  backgroundColor: const Color(0xFF4b68ff),
-                  disabledForegroundColor: const Color(0xFF939393),
-                  disabledBackgroundColor: const Color(0xFFC4C4C4),
-                  side: const BorderSide(color: Color(0xFF4b68ff)),
+                  foregroundColor: const Color(0xFFFFFFFF),
+                  backgroundColor: const Color(0xFFFFC300),
+                  disabledForegroundColor: const Color(0xFFB0B0B0),
+                  disabledBackgroundColor: const Color(0xFFFFE082),
+                  side: const BorderSide(color: Color(0xFFFFC300)),
                   padding: const EdgeInsets.symmetric(vertical: 18),
                   textStyle: const TextStyle(
                       fontSize: 16,
@@ -103,11 +103,11 @@ class LoginFormState extends State<LoginForm> {
               child: OutlinedButton(
                 style: OutlinedButton.styleFrom(
                   elevation: 0,
-                  foregroundColor: const Color(0xFF272727),
-                  side: const BorderSide(color: Color(0xFFD9D9D9)),
+                  foregroundColor: const Color(0xFFFFC300),
+                  side: const BorderSide(color: Color(0xFFFFC300)),
                   textStyle: const TextStyle(
                       fontSize: 16,
-                      color: Color(0xFF232323),
+                      color: Color(0xFFFFC300),
                       fontWeight: FontWeight.w600),
                   padding:
                   const EdgeInsets.symmetric(vertical: 18, horizontal: 20),

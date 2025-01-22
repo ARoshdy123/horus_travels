@@ -1,4 +1,4 @@
-name: tesstt
+name: horus_travels
 description: "A new Flutter project."
 # The following line prevents the package from being accidentally published to
 # pub.dev using `flutter pub publish`. This is preferred for private packages.
@@ -67,6 +67,7 @@ flutter:
   assets:
      - images/logo.png
      - images/1.jpeg
+     - images/BGI.png
      - gimages/
 
 

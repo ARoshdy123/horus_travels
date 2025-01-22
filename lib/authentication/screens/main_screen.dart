@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:tesstt/authentication/screens/fav_page.dart';
-import 'package:tesstt/authentication/screens/gov_screen.dart';
-import 'package:tesstt/authentication/screens/home_page.dart';
-import 'package:tesstt/authentication/screens/widgets/main_widgets/profile_page.dart';
+import 'package:horus_travels/authentication/screens/fav_page.dart';
+import 'package:horus_travels/authentication/screens/gov_screen.dart';
+import 'package:horus_travels/authentication/screens/home_page.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
+
+import 'widgets/main_widgets/profile_page.dart';
 
 class MainScreen extends StatefulWidget {
   const MainScreen({super.key});

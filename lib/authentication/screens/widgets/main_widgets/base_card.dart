@@ -49,7 +49,7 @@ class _BaseCardState extends State<BaseCard> {
         child: Stack(
           children: [
             Positioned.fill(
-              child: Image.network(
+              child: Image.asset(
                 widget.place['imageUrl'],
                 fit: BoxFit.cover,
               ),

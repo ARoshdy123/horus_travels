@@ -1,7 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
+import 'package:horus_travels/authentication/screens/widgets/main_widgets/base_card.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'package:tesstt/authentication/screens/widgets/main_widgets/base_card.dart';
 
 class PlacesByGovernorate extends StatefulWidget {
   final String governorate;

@@ -113,11 +113,11 @@ class _SignUpFormState extends State<SignUpForm> {
             child: ElevatedButton(
               style: ElevatedButton.styleFrom(
                 elevation: 0,
-                foregroundColor: const Color(0xFFF6F6F6),
-                backgroundColor: const Color(0xFF4b68ff),
-                disabledForegroundColor: const Color(0xFF939393),
-                disabledBackgroundColor: const Color(0xFFC4C4C4),
-                side: const BorderSide(color: Color(0xFF4b68ff)),
+                foregroundColor: const Color(0xFFFFFFFF),
+                backgroundColor: const Color(0xFFFFC300),
+                disabledForegroundColor: const Color(0xFFB0B0B0),
+                disabledBackgroundColor: const Color(0xFFFFE082),
+                side: const BorderSide(color: Color(0xFFFFC300)),
                 padding: const EdgeInsets.symmetric(vertical: 18),
                 textStyle: const TextStyle(
                     fontSize: 16,
